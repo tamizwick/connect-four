@@ -4,20 +4,34 @@ import classes from './App.module.css';
 
 class App extends Component {
   state = {
-    tokenStatus: [
-      [null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null]
+    tokenColor: [
+      Array(7).fill(null),
+      Array(7).fill(null),
+      Array(7).fill(null),
+      Array(7).fill(null),
+      Array(7).fill(null),
+      Array(7).fill(null),
+    ],
+    tokenClickable: [
+      Array(7).fill(false),
+      Array(7).fill(false),
+      Array(7).fill(false),
+      Array(7).fill(false),
+      Array(7).fill(false),
+      Array(7).fill(true),
     ],
     nextPlayer: 'red'
   }
 
   clickedTokenHandler = (row, column) => {
-    const tokenStatus = [...this.state.tokenStatus];
-    tokenStatus[row][column] = this.state.nextPlayer;
+    const tokenColor = [...this.state.tokenColor];
+    tokenColor[row][column] = this.state.nextPlayer;
+
+    const tokenClickable = [...this.state.tokenClickable];
+    if (row - 1 >= 0) {
+      tokenClickable[row][column] = false;
+      tokenClickable[row - 1][column] = true;
+    }
 
     let player = 'red';
     if (this.state.nextPlayer === 'red') {
@@ -25,7 +39,8 @@ class App extends Component {
     }
 
     this.setState({
-      tokenStatus: tokenStatus,
+      tokenColor: tokenColor,
+      tokenClickable: tokenClickable,
       nextPlayer: player
     });
   }
@@ -33,12 +48,14 @@ class App extends Component {
   render() {
     return(
       <div className={classes.App}>
-        {this.state.tokenStatus.map((row, index) => {
+        {this.state.tokenColor.map((row, index) => {
           return <Row 
             key={index}
             row={index}
-            tokens={this.state.tokenStatus[index]}
-            tokenClick={this.clickedTokenHandler} />
+            tokens={this.state.tokenColor[index]}
+            tokenClickable={this.state.tokenClickable[index]}
+            tokenClick={this.clickedTokenHandler}
+            nextPlayer={this.state.nextPlayer} />
         })}
       </div>
     );

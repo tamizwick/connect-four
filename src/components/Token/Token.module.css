@@ -4,6 +4,7 @@
     width: 7%;
     margin: 16px auto;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .Token.red {
@@ -12,4 +13,12 @@
 
 .Token.blue {
     background: #0b18d4;
+}
+
+.Token.clickablered {
+    border: 3px solid #d42c0b;
+}
+
+.Token.clickableblue {
+    border: 3px solid #0b18d4;
 }

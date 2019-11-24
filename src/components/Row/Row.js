@@ -8,7 +8,9 @@ const row = (props) => {
         return <Token 
             key={key} 
             clicked={() => props.tokenClick(props.row, index)}
-            tokenColor={props.tokens[index]} />
+            tokenColor={props.tokens[index]}
+            tokenClickable={props.tokenClickable[index]}
+            nextPlayer={props.nextPlayer} />
     })
 
     return (
