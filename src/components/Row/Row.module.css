@@ -1,0 +1,8 @@
+.Row {
+    height: 80px;
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}

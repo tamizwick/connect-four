@@ -1,0 +1,15 @@
+.Token {
+    border-radius: 50%;
+    background: #000;
+    width: 7%;
+    margin: 16px auto;
+    cursor: pointer;
+}
+
+.Token.red {
+    background: #d42c0b;
+}
+
+.Token.blue {
+    background: #0b18d4;
+}
