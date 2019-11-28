@@ -11,7 +11,7 @@ const token = (props) => {
     }
     
     if (props.tokenClickable) {
-            tokenClasses.push(classes[`clickable${props.nextPlayer}`]);
+        tokenClasses.push(classes[`clickable${props.nextPlayer}`]);
     }
     
     const clickAction = props.tokenClickable ? props.clicked : null;
