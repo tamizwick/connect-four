@@ -22,7 +22,7 @@ class App extends Component {
       Array(7).fill(true),
     ],
     nextPlayer: 'red',
-    winner: null
+    winner: undefined
   }
 
   clickedTokenHandler = (row, column) => {
@@ -40,13 +40,30 @@ class App extends Component {
       player = 'blue'
     }
 
-    this.setState({
-      tokenColor: tokenColor,
-      tokenClickable: tokenClickable,
-      nextPlayer: player
+    this.setState(() => {
+      let winner = this.checkForWinner(row, column);
+      if (winner != undefined) {
+        return {
+          tokenColor: tokenColor,
+          tokenClickable: [
+            Array(7).fill(false),
+            Array(7).fill(false),
+            Array(7).fill(false),
+            Array(7).fill(false),
+            Array(7).fill(false),
+            Array(7).fill(false),
+          ],
+          nextPlayer: player,
+          winner: winner
+        }
+      } else {
+        return {
+          tokenColor: tokenColor,
+          tokenClickable: tokenClickable,
+          nextPlayer: player
+        }
+      }
     });
-
-    this.checkForWinner(row, column);
   }
 
   checkForWinner = (row, column) => {
@@ -58,22 +75,8 @@ class App extends Component {
            copyOfTokenColor[row][i] === copyOfTokenColor[row][i + 1] &&
            copyOfTokenColor[row][i] === copyOfTokenColor[row][i + 2] &&
            copyOfTokenColor[row][i] === copyOfTokenColor[row][i + 3] ) {
-        this.setState({
-          winner: copyOfTokenColor[row][i],
-          tokenClickable: [
-            Array(7).fill(false),
-            Array(7).fill(false),
-            Array(7).fill(false),
-            Array(7).fill(false),
-            Array(7).fill(false),
-            Array(7).fill(false),
-          ]
-        });
-        break;
+        return copyOfTokenColor[row][i];
       }
-    }
-    if (this.state.winner !== null) {
-      return;
     }
 
     //Check for connect-four in a single column
@@ -82,22 +85,8 @@ class App extends Component {
            copyOfTokenColor[i][column] === copyOfTokenColor[i + 1][column] &&
            copyOfTokenColor[i][column] === copyOfTokenColor[i + 2][column] &&
            copyOfTokenColor[i][column] === copyOfTokenColor[i + 3][column] ) {
-        this.setState({
-          winner: copyOfTokenColor[i][column],
-          tokenClickable: [
-            Array(7).fill(false),
-            Array(7).fill(false),
-            Array(7).fill(false),
-            Array(7).fill(false),
-            Array(7).fill(false),
-            Array(7).fill(false),
-          ]
-        });
-        break;
+        return copyOfTokenColor[i][column];
       }
-    }
-    if (this.state.winner !== null) {
-      return;
     }
 
     //Check for diagonal connect-four left-to-right
@@ -108,17 +97,7 @@ class App extends Component {
          copyOfTokenColor[row][column] === copyOfTokenColor[row + 1][column + 1] &&
          copyOfTokenColor[row][column] === copyOfTokenColor[row + 2][column + 2] &&
          copyOfTokenColor[row][column] === copyOfTokenColor[row + 3][column + 3] ) {
-      this.setState({
-        winner: copyOfTokenColor[row][column],
-        tokenClickable: [
-          Array(7).fill(false),
-          Array(7).fill(false),
-          Array(7).fill(false),
-          Array(7).fill(false),
-          Array(7).fill(false),
-          Array(7).fill(false),
-        ]
-      })
+      return copyOfTokenColor[row][column];
     }
   }
 
@@ -134,7 +113,7 @@ class App extends Component {
             tokenClick={this.clickedTokenHandler}
             nextPlayer={this.state.nextPlayer} />
         })}
-        {this.state.winner !== null ? <Modal>The winner is {this.state.winner}</Modal> : null}
+        {this.state.winner !== undefined ? <Modal>The winner is {this.state.winner}</Modal> : null}
       </div>
     );
   }
