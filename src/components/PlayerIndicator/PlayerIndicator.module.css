@@ -1,0 +1,21 @@
+.PlayerIndicator h1 {
+    display: inline-block;
+}
+
+.PlayerIndicator .Token {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 16px;
+    vertical-align: middle;
+}
+
+.Token.red {
+    background: #d42c0b;
+}
+
+.Token.blue {
+    background: #0b18d4;
+}

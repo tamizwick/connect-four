@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Row from './components/Row/Row';
-import Modal from './components/Modal/Modal';
 import classes from './App.module.css';
+import PlayerIndicator from './components/PlayerIndicator/PlayerIndicator';
+import Board from './components/Board/Board';
 
 class App extends Component {
   state = {
@@ -79,54 +79,52 @@ class App extends Component {
       }
     }
 
-    //Check for connect-four in a single column
-    for (let i = 0; i < 3; i++) {
-      if ( copyOfTokenColor[i][column] !== null &&
-           copyOfTokenColor[i][column] === copyOfTokenColor[i + 1][column] &&
-           copyOfTokenColor[i][column] === copyOfTokenColor[i + 2][column] &&
-           copyOfTokenColor[i][column] === copyOfTokenColor[i + 3][column] ) {
-        return copyOfTokenColor[i][column];
-      }
-    }
-
-    //Check for diagonal connect-four left-to-right
-    for (let i = 0; i < 3; i++) {
-      for (let y = 0; y < 4; y++) {
-        if (copyOfTokenColor[i][y] !== null &&
-            copyOfTokenColor[i][y] === copyOfTokenColor[i + 1][y + 1] &&
-            copyOfTokenColor[i][y] === copyOfTokenColor[i + 2][y + 2] &&
-            copyOfTokenColor[i][y] === copyOfTokenColor[i + 3][y + 3] ) {
-          return copyOfTokenColor[i][y];
-        }
-      }
-    }
-    
-    //Check for diagonal connect-four right-to-left
-    for (let i = 0; i < 3; i++) {
-      for (let y = 3; y < 7; y++) {
-        if (copyOfTokenColor[i][y] !== null &&
-            copyOfTokenColor[i][y] === copyOfTokenColor[i + 1][y - 1] &&
-            copyOfTokenColor[i][y] === copyOfTokenColor[i + 2][y - 2] &&
-            copyOfTokenColor[i][y] === copyOfTokenColor[i + 3][y - 3] ) {
-          return copyOfTokenColor[i][y];
-        }
-      }
+  //Check for connect-four in a single column
+  for (let i = 0; i < 3; i++) {
+    if ( copyOfTokenColor[i][column] !== null &&
+         copyOfTokenColor[i][column] === copyOfTokenColor[i + 1][column] &&
+         copyOfTokenColor[i][column] === copyOfTokenColor[i + 2][column] &&
+         copyOfTokenColor[i][column] === copyOfTokenColor[i + 3][column] ) {
+      return copyOfTokenColor[i][column];
     }
   }
 
+  //Check for diagonal connect-four left-to-right
+  for (let i = 0; i < 3; i++) {
+    for (let y = 0; y < 4; y++) {
+      if (copyOfTokenColor[i][y] !== null &&
+          copyOfTokenColor[i][y] === copyOfTokenColor[i + 1][y + 1] &&
+          copyOfTokenColor[i][y] === copyOfTokenColor[i + 2][y + 2] &&
+          copyOfTokenColor[i][y] === copyOfTokenColor[i + 3][y + 3] ) {
+        return copyOfTokenColor[i][y];
+      }
+    }
+  }
+  
+  //Check for diagonal connect-four right-to-left
+  for (let i = 0; i < 3; i++) {
+    for (let y = 3; y < 7; y++) {
+      if (copyOfTokenColor[i][y] !== null &&
+          copyOfTokenColor[i][y] === copyOfTokenColor[i + 1][y - 1] &&
+          copyOfTokenColor[i][y] === copyOfTokenColor[i + 2][y - 2] &&
+          copyOfTokenColor[i][y] === copyOfTokenColor[i + 3][y - 3] ) {
+        return copyOfTokenColor[i][y];
+      }
+    }
+  }
+}
+
+
   render() {
-    return(
+    return (
       <div className={classes.App}>
-        {this.state.tokenColor.map((row, index) => {
-          return <Row 
-            key={index}
-            row={index}
-            tokens={this.state.tokenColor[index]}
-            tokenClickable={this.state.tokenClickable[index]}
-            tokenClick={this.clickedTokenHandler}
-            nextPlayer={this.state.nextPlayer} />
-        })}
-        {this.state.winner !== undefined ? <Modal>The winner is {this.state.winner}</Modal> : null}
+        <PlayerIndicator nextPlayer={this.state.nextPlayer} />
+        <Board 
+          tokenColor={this.state.tokenColor}
+          tokenClickable={this.state.tokenClickable}
+          nextPlayer={this.state.nextPlayer}
+          winner={this.state.winner}
+          clickedTokenHandler={this.clickedTokenHandler} />
       </div>
     );
   }
