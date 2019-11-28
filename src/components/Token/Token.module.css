@@ -1,7 +1,8 @@
 .Token {
     border-radius: 50%;
     background: #000;
-    width: 7%;
+    width: 50px;
+    height: 50px;
     margin: 16px auto;
     cursor: pointer;
     box-sizing: border-box;

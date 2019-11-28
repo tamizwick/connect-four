@@ -29,9 +29,9 @@ class App extends Component {
 
     const tokenClickable = [...this.state.tokenClickable];
     if (row - 1 >= 0) {
-      tokenClickable[row][column] = false;
       tokenClickable[row - 1][column] = true;
     }
+    tokenClickable[row][column] = false;
 
     let player = 'red';
     if (this.state.nextPlayer === 'red') {
