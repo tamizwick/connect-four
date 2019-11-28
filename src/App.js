@@ -42,7 +42,7 @@ class App extends Component {
 
     this.setState(() => {
       let winner = this.checkForWinner(row, column);
-      if (winner != undefined) {
+      if (winner !== undefined) {
         return {
           tokenColor: tokenColor,
           tokenClickable: [
@@ -90,14 +90,27 @@ class App extends Component {
     }
 
     //Check for diagonal connect-four left-to-right
-    //@TODO: This only checks if the last token is the top-left token. Figure out how to
-    //       make it work if the last token is any of the others.
-    if ( row <= 2 &&
-         copyOfTokenColor[row][column] !== null &&
-         copyOfTokenColor[row][column] === copyOfTokenColor[row + 1][column + 1] &&
-         copyOfTokenColor[row][column] === copyOfTokenColor[row + 2][column + 2] &&
-         copyOfTokenColor[row][column] === copyOfTokenColor[row + 3][column + 3] ) {
-      return copyOfTokenColor[row][column];
+    for (let i = 0; i < 3; i++) {
+      for (let y = 0; y < 4; y++) {
+        if (copyOfTokenColor[i][y] !== null &&
+            copyOfTokenColor[i][y] === copyOfTokenColor[i + 1][y + 1] &&
+            copyOfTokenColor[i][y] === copyOfTokenColor[i + 2][y + 2] &&
+            copyOfTokenColor[i][y] === copyOfTokenColor[i + 3][y + 3] ) {
+          return copyOfTokenColor[i][y];
+        }
+      }
+    }
+    
+    //Check for diagonal connect-four right-to-left
+    for (let i = 0; i < 3; i++) {
+      for (let y = 3; y < 7; y++) {
+        if (copyOfTokenColor[i][y] !== null &&
+            copyOfTokenColor[i][y] === copyOfTokenColor[i + 1][y - 1] &&
+            copyOfTokenColor[i][y] === copyOfTokenColor[i + 2][y - 2] &&
+            copyOfTokenColor[i][y] === copyOfTokenColor[i + 3][y - 3] ) {
+          return copyOfTokenColor[i][y];
+        }
+      }
     }
   }
 
