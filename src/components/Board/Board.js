@@ -1,6 +1,5 @@
 import React from 'react';
 import Row from '../Row/Row';
-import Modal from '../Modal/Modal';
 import classes from './Board.module.css';
 
 const board = (props) => {
@@ -15,7 +14,6 @@ const board = (props) => {
             tokenClick={props.clickedTokenHandler}
             nextPlayer={props.nextPlayer} />
         })}
-        {props.winner !== undefined ? <Modal>The winner is {props.winner}</Modal> : null}
       </div>
     );
 }

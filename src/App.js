@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classes from './App.module.css';
 import PlayerIndicator from './components/PlayerIndicator/PlayerIndicator';
 import Board from './components/Board/Board';
+import Modal from './components/Modal/Modal';
 
 class App extends Component {
   state = {
@@ -125,6 +126,7 @@ class App extends Component {
           nextPlayer={this.state.nextPlayer}
           winner={this.state.winner}
           clickedTokenHandler={this.clickedTokenHandler} />
+        {this.state.winner !== undefined ? <Modal>The winner is {this.state.winner}</Modal> : null}
       </div>
     );
   }
