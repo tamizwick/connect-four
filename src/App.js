@@ -1,8 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import classes from './App.module.css';
 import PlayerIndicator from './components/PlayerIndicator/PlayerIndicator';
 import Board from './components/Board/Board';
-import Modal from './components/Modal/Modal';
+import Modal from './components/UI/Modal/Modal';
+import Backdrop from './components/UI/Backdrop/Backdrop';
+import modal from './components/UI/Modal/Modal';
 
 class App extends Component {
   state = {
@@ -115,8 +117,40 @@ class App extends Component {
   }
 }
 
+startNewGame = () => {
+  this.setState({
+    tokenColor: [
+      Array(7).fill(null),
+      Array(7).fill(null),
+      Array(7).fill(null),
+      Array(7).fill(null),
+      Array(7).fill(null),
+      Array(7).fill(null),
+    ],
+    tokenClickable: [
+      Array(7).fill(false),
+      Array(7).fill(false),
+      Array(7).fill(false),
+      Array(7).fill(false),
+      Array(7).fill(false),
+      Array(7).fill(true),
+    ],
+    nextPlayer: 'red',
+    winner: undefined
+  });
+}
 
   render() {
+    const modalAndBackdrop = 
+      <Fragment>
+        <Modal 
+          winner={this.state.winner}
+          buttonClicked={this.startNewGame}>
+            The winner is {this.state.winner}!
+        </Modal>
+        <Backdrop />
+      </Fragment>
+
     return (
       <div className={classes.App}>
         <PlayerIndicator nextPlayer={this.state.nextPlayer} />
@@ -126,7 +160,7 @@ class App extends Component {
           nextPlayer={this.state.nextPlayer}
           winner={this.state.winner}
           clickedTokenHandler={this.clickedTokenHandler} />
-        {this.state.winner !== undefined ? <Modal>The winner is {this.state.winner}</Modal> : null}
+        {this.state.winner !== undefined ? modalAndBackdrop : null}
       </div>
     );
   }

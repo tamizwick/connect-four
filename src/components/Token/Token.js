@@ -3,7 +3,9 @@ import classes from './Token.module.css';
 
 class Token extends Component {
     shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.tokenClickable || (nextProps.tokenClickable !== this.props.tokenClickable);
+        return nextProps.tokenClickable || 
+            (nextProps.tokenClickable !== this.props.tokenClickable) ||
+            nextProps.tokenColor !== this.props.tokenColor;
     }
 
     render() {

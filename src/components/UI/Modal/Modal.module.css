@@ -1,0 +1,47 @@
+.Modal {
+    position: fixed;
+    top: 200px;
+    left: 35%;
+    z-index: 100;
+    background: #000;
+    width: 300px;
+    height: 200px;
+    text-align: center;
+}
+
+.Modal.red {
+    border: 3px solid #d42c0b;
+}
+
+.Modal.blue {
+    border: 3px solid #0b18d4;
+}
+
+.Modal p {
+    font-size: 18px;
+    margin: 48px auto 16px;
+    color: #fff;
+}
+
+.Token {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+}
+
+.Token.red {
+    background: #d42c0b;
+}
+
+.Token.blue {
+    background: #0b18d4;
+}
+
+.Modal button {
+    background: #fff;
+    display: block;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 16px auto;
+}
